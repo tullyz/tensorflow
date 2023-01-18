@@ -2,20 +2,21 @@
 
 This is my first trial of building tensorflow lite wheel for Raspberry pi zero "1" with Bullseye and Python 3.9.
 
-tflite_runtime-3.11.0-cp39-cp39-linux_armv6l.whl
+tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
 
 
 # INSTALLATION
 
 
-pi@raspberrypi7:~ $ pip install tflite_runtime-3.11.0-cp39-cp39-linux_armv6l.whl --force-reinstall
+pi@raspberrypi7:~ $ pip install tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl --force-reinstall
 
 Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
-Processing ./tflite_runtime-3.11.0-cp39-cp39-linux_armv6l.whl
-Requirement already satisfied: numpy>=1.19.2 in /usr/lib/python3/dist-packages (from tflite-runtime==3.11.0) (1.19.5)
+Processing ./tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+Requirement already satisfied: numpy>=1.19.2 in /usr/lib/python3/dist-packages (from tflite-runtime==2.11.0) (1.19.5)
 Installing collected packages: tflite-runtime
 Successfully installed tflite-runtime-3.11.0
 
+Note) 3.11.0 is typo. Should read 2.11.0
 
 # TEST
 
