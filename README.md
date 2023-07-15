@@ -8,6 +8,8 @@ tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
 # INSTALLATION
 
 ```
+pi@raspberrypi7:~ $ wget https://github.com/tullyz/tensorflow/blob/main/tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+
 pi@raspberrypi7:~ $ pip install tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl --force-reinstall
 
 Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
