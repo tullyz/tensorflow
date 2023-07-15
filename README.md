@@ -9,6 +9,9 @@ tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
 
 ```
 pi@raspberrypi7:~ $ wget https://github.com/tullyz/tensorflow/blob/main/tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+pi@raspberrypi7:~ $ ls -l
+total 1600
+-rw-r--r-- 1 pi pi 1635286 Jan 12 23:26 tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
 
 pi@raspberrypi7:~ $ pip install tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl --force-reinstall
 
