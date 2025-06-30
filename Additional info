@@ -1,0 +1,140 @@
+It's been a while since I built this, I am going to add some information before I forget completely^^ 
+
+***
+How to install Tensorflow lite runtime on Raspberry Pi zero WH.
+
+Target model is Raspberry pi zero W（Not 2W, but the original one)
+Suppose Raspberry OS 32bit Lite is written in the microSD card.
+Access the Raspberry pi usnig SSH.
+
+Make sure to confirm OS just in case.
+
+pi@raspberrypi7:~ $ lsb_release -a
+No LSB modules are available.
+Distributor ID: Raspbian
+Description: Raspbian GNU/Linux 11 (bullseye)
+Release: 11
+Codename: bullseye
+
+pi@raspberrypi7:~ $ python --version
+Python 3.9.2
+
+pi@raspberrypi7:~ $ pip list
+Package Version
+--------------------- ---------
+certifi 2020.6.20
+chardet 4.0.0
+colorzero 1.1
+distro 1.5.0
+gpiozero 1.6.2
+idna 2.10
+meson 0.56.2
+numpy 1.19.5
+opencv-contrib-python 4.5.5.62
+opencv-python 4.5.1.48
+picamera2 0.3.8
+pidng 4.0.9
+piexif 1.1.3
+Pillow 8.1.2
+pip 22.3.1
+ply 3.11
+PyOpenGL 3.1.6
+PyQt5 5.15.2
+PyQt5-sip 12.8.1
+python-apt 2.2.1
+python-prctl 1.7
+PyYAML 6.0
+requests 2.25.1
+RPi.GPIO 0.7.0
+setuptools 52.0.0
+simplejpeg 1.6.4
+six 1.16.0
+spidev 3.5
+ssh-import-id 5.10
+toml 0.10.1
+urllib3 1.26.5
+v4l2-python3 0.3.1
+wheel 0.34.2
+
+Download wheel file.
+pi@raspberrypi7:~ $ wget https://github.com/tullyz/tensorflow/blob/main/tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+
+Make sure the file size is correct, just in se. 
+pi@raspberrypi7:~ $ ls -l
+total 1600
+-rw-r--r-- 1 pi pi 1635286 Jan 12 23:26 tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+
+Install whl file.
+
+pi@raspberrypi7:~ $ pip install tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+Defaulting to user installation because normal site-packages is not writeable
+Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
+Processing ./tflite_runtime-2.11.0-cp39-cp39-linux_armv6l.whl
+Requirement already satisfied: numpy>=1.19.2 in /usr/lib/python3/dist-packages (from tflite-runtime==2.11.0) (1.19.5)
+Installing collected packages: tflite-runtime
+Successfully installed tflite-runtime-3.11.0
+
+Note:
+3.11.0 is typo of 2.110 .
+
+Resister the library tothe environment variable. 
+pi@raspberrypi7:~ $ export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1.2.0
+
+Make sure if it works.
+pi@raspberrypi7:~ $ python
+Python 3.9.2 (default, Mar 12 2021, 04:06:34)
+[GCC 10.2.1 20210110] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from tflite_runtime.interpreter import Interpreter
+>>> (ctrl-Z)
+
+Now, try running a program using the Tensorflow lite runtime as you like.
+interpreter = Interpreter(model_path='model/mnist.tflite') or something like that ^^
+
+pi@raspberrypi7:~ $ python tflite_mnist.py
+2.74 sec for preparation
+9 nine
+0.37 sec for inference
+
+
+This is the first time I've built and created a whl file, so please use it at your own risk.
+
+
+References:　
+https://www.tensorflow.org/lite/guide/build_cmake_pip?hl=ja
+https://qiita.com/kenichiro90/items/92b12b5cd4fcd74fac7a 
+
+
+-------------------
+
+
+* Generating the wheel file
+
+After building TensorFlow Lite with Python bindings using CMake, navigate to the pip_package directory:
+
+cd ../tensorflow/lite/tools/pip_package
+
+Use setup.py to build the .whl (wheel) package:
+
+python3 setup.py bdist_wheel
+
+If successful, a tflite_runtime-xxx.whl file will be created inside the dist/ directory.
+
+Notes
+    The generated tflite_runtime-xxx.whl can be installed on other Raspberry Pi Zero W devices, as long as they have the same Python version.
+    You can optionally specify a platform name explicitly, for example with --plat-name=linux_armv6l, if needed for compatibility.
+    Disabling features like XNNPACK helps reduce binary size, which is useful for constrained devices like the Pi Zero.
+
+Verifying Installation
+After building the wheel file, you can install it with:
+
+pip3 install dist/tflite_runtime-*.whl
+
+Then verify the installation:
+
+python3 -c "import tflite_runtime.interpreter as tflite; print(tflite.__file__)"
+
+
+eof
+
+
